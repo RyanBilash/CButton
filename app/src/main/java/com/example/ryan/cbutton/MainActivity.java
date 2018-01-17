@@ -33,7 +33,7 @@ public class MainActivity extends AppCompatActivity {
             voice="noVoice";
         }
     }
-    public boolean voiceoo(){
+    public boolean voiceEnabled(){
         if(voice.equals("voice")){
             return true;
         }else{
@@ -68,7 +68,7 @@ public class MainActivity extends AppCompatActivity {
         if(!fileFound){
             try {
                 FileWriter fw=new FileWriter(file);
-                fw.append("red\nvoice\n15");
+                fw.append("red\nnoVoice");
             } catch (IOException e) {
             }
         }else{
@@ -85,7 +85,7 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View v) {
                 try {
                     FileWriter fw=new FileWriter(file);
-                    fw.append(buttonColor+"\n"+voice+"\n"+(numOf-1));
+                    fw.append(buttonColor+"\n"+voice);
                 } catch (IOException e) {
                 }
 
@@ -103,7 +103,7 @@ public class MainActivity extends AppCompatActivity {
                 /*
                 *
                 *
-               if(voiceoo()){
+               if(voiceEnabled()){
                     InputStream ins=getResources().openRawResource(getResources().getIdentifier(speaks[a],"raw",getPackageName()));
 
                     int id=getResources().getIdentifier(speaks[a],"raw",getPackageName());

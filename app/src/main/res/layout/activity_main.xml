@@ -42,7 +42,9 @@
         android:layout_width="241dp"
         android:layout_height="139dp"
         android:text="Only temporary so that I can get a settings image to make as the button"
-        tools:layout_editor_absoluteY="0dp"
-        tools:layout_editor_absoluteX="0dp" />
+        app:layout_constraintTop_toTopOf="parent"
+        android:layout_marginTop="8dp"
+        android:layout_marginLeft="8dp"
+        app:layout_constraintLeft_toLeftOf="parent" />
 
 </android.support.constraint.ConstraintLayout>
