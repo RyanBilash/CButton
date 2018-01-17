@@ -1,0 +1,3 @@
+red
+noVoice
+50
