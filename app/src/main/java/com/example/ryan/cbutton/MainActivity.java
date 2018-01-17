@@ -15,11 +15,10 @@ import java.io.IOException;
 
 public class MainActivity extends AppCompatActivity {
     final String[] cs =getResources().getStringArray(R.array.comps);
-    final String[] speaks=getResources().getStringArray(R.array.speaks);
+    //final String[] speaks=getResources().getStringArray(R.array.speaks);
 
-    int numOf=15;
     String buttonColor="red";
-    String voice="voice";
+    String voice="noVoice";
     File file = new File("settings.txt");
     //final MediaPlayer click=MediaPlayer.create(this, R.raw.Pling_KevanGC_1485374730);
 
@@ -59,7 +58,6 @@ public class MainActivity extends AppCompatActivity {
             BufferedReader br=new BufferedReader(new FileReader(file));
             buttonColor=br.readLine();
             voice=br.readLine();
-            numOf=Integer.valueOf(br.readLine());
         } catch (FileNotFoundException e) {
             fileFound=false;
         } catch (IOException e) {
@@ -90,7 +88,7 @@ public class MainActivity extends AppCompatActivity {
                 }
 
                 TextView text=(TextView)findViewById(R.id.textView);
-                int a=(int)(Math.random()*(cs.length+1));
+                int a=(int)(Math.random()*cs.length);
 
 
 
