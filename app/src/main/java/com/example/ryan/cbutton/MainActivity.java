@@ -1,5 +1,6 @@
 package com.example.ryan.cbutton;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
@@ -15,8 +16,6 @@ import java.io.FileWriter;
 import java.io.IOException;
 
 public class MainActivity extends AppCompatActivity {
-     String[] cs;
-    //final String[] speaks=getResources().getStringArray(R.array.speaks);
 
     String buttonColor="red";
     String voice="noVoice";
@@ -52,21 +51,8 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        //ArrayAdapter<String> adapter;
-
-        //cs = getResources().getStringArray(R.array.comps);
-
-        /* Assign the name array to that adapter and
-        also choose a simple layout for the list items
-        adapter = new ArrayAdapter<String>(
-                this,
-                android.R.layout.simple_list_item_1,
-                cs);*/
-
-        // Assign the adapter to this ListActivity
-
         final ArrayAdapter<String> compList = new ArrayAdapter<String>(MainActivity.this,android.R.layout.simple_list_item_1,getResources().getStringArray(R.array.comps));
-        //DOES NOT CRASH IMMEDIATELY
+
 
         boolean fileFound=true;
 
@@ -129,6 +115,12 @@ public class MainActivity extends AppCompatActivity {
             }
         });
         Button settings=(Button)findViewById(R.id.Settings);
+        settings.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(MainActivity.this, Settings.class));
+            }
+        });
     }
 
 
