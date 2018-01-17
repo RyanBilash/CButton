@@ -21,11 +21,6 @@ public class MainActivity extends AppCompatActivity {
     String buttonColor="red";
     String voice="noVoice";
     File file = new File("settings.txt");
-    //final MediaPlayer click=MediaPlayer.create(this, R.raw.Pling_KevanGC_1485374730);
-
-
-
-
 
     public void changeButtonColor(String n){//have the thing be a spinner with the different colors listed
         buttonColor=n;
@@ -91,12 +86,6 @@ public class MainActivity extends AppCompatActivity {
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                /*try {
-                    FileWriter fw=new FileWriter(file);
-                    fw.append(buttonColor+"\n"+voice);
-                } catch (IOException e) {
-                }
-                */
                 click.start();
                 TextView text=(TextView)findViewById(R.id.textView);
                 int a=(int)(Math.random()*compList.getCount());
@@ -131,10 +120,4 @@ public class MainActivity extends AppCompatActivity {
             }
         });
     }
-
-
-    /*public void options(View view){
-
-    }*/
-
 }
