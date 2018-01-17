@@ -3,6 +3,7 @@ package com.example.ryan.cbutton;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.TextView;
 
@@ -14,7 +15,7 @@ import java.io.FileWriter;
 import java.io.IOException;
 
 public class MainActivity extends AppCompatActivity {
-    final String[] cs =getResources().getStringArray(R.array.comps);
+     String[] cs;
     //final String[] speaks=getResources().getStringArray(R.array.speaks);
 
     String buttonColor="red";
@@ -49,8 +50,21 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        //ArrayAdapter<String> adapter;
 
+        //cs = getResources().getStringArray(R.array.comps);
 
+        /* Assign the name array to that adapter and
+        also choose a simple layout for the list items
+        adapter = new ArrayAdapter<String>(
+                this,
+                android.R.layout.simple_list_item_1,
+                cs);*/
+
+        // Assign the adapter to this ListActivity
+        ArrayAdapter<String> compList = new ArrayAdapter<String>(MainActivity.this,android.R.layout.simple_list_item_1,getResources().getStringArray(R.array.comps));
+
+        //DOES NOT CRASH IMMEDIATELY
 
         boolean fileFound=true;
 
@@ -93,7 +107,7 @@ public class MainActivity extends AppCompatActivity {
 
 
 
-                text.setText(cs[a]);
+                text.setText(cs[a].replace('_',' '));
 
 
 
@@ -118,6 +132,8 @@ public class MainActivity extends AppCompatActivity {
         });
         Button settings=(Button)findViewById(R.id.Settings);
     }
+
+
     /*public void options(View view){
 
     }*/

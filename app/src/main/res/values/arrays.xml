@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string-array name="comps">
+        <item>You smell nice today</item>
+        <item>You look lovely</item>
+        <item>Your smile shines like the light of a thousand suns</item>
+        <item>That hairstyle really suits you well</item>
+        <item>You look beautiful tonight</item>
+        <item>Nice shoes!</item>
+        <item>Your smile is contagious</item>
+        <item>You have gorgeous eyes</item>
+        <item>I love you more than I love puppies</item>
+        <item>Your nose is cute, it is the cutest nose I\'ve ever seen</item>
+        <item>You\'re a beautiful person</item>
+        <item>You should be proud of yourself</item>
+        <item>You have a great sense of humor</item>
+        <item>You\'re a strong person</item>
+        <item>You\'re like sunshine a rainy day</item>
+        <item>You\'re a great listener</item>
+        <item>Being around you makes everything better</item>
+        <item>Colors seem brighter while you\'re around</item>
+        <item>You\'re one of a kind</item>
+        <item>You\'re an inspiration</item>
+        <item>Being around you is like being on a little vacation</item>
+        <item>You\'re more fun than dogs and bubble wrap</item>
+        <item>You\'re like a breath of fresh air</item>
+        <item>You\'re someone\'s reason to smile</item>
+        <item>You\'re a gift to those around you</item>
+        <item>You are smarter than you think</item>
+        <item>You are an outstanding human being</item>
+
+
+    </string-array>
+
+</resources>
