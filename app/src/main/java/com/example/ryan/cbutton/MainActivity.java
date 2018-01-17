@@ -1,6 +1,7 @@
 package com.example.ryan.cbutton;
 
 import android.content.Intent;
+import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
@@ -21,6 +22,8 @@ public class MainActivity extends AppCompatActivity {
     String voice="noVoice";
     File file = new File("settings.txt");
     //final MediaPlayer click=MediaPlayer.create(this, R.raw.Pling_KevanGC_1485374730);
+
+
 
 
 
@@ -50,6 +53,11 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        final MediaPlayer bgm = MediaPlayer.create(this, R.raw.bgm);
+        bgm.start();
+        bgm.setLooping(true);
+        final MediaPlayer click = MediaPlayer.create(this, R.raw.click);
 
         final ArrayAdapter<String> compList = new ArrayAdapter<String>(MainActivity.this,android.R.layout.simple_list_item_1,getResources().getStringArray(R.array.comps));
 
@@ -89,6 +97,7 @@ public class MainActivity extends AppCompatActivity {
                 } catch (IOException e) {
                 }
                 */
+                click.start();
                 TextView text=(TextView)findViewById(R.id.textView);
                 int a=(int)(Math.random()*compList.getCount());
                                 text.setText(compList.getItem(a).replace('_',' '));
@@ -127,4 +136,5 @@ public class MainActivity extends AppCompatActivity {
     /*public void options(View view){
 
     }*/
+
 }
