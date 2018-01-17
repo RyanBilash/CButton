@@ -23,6 +23,8 @@ public class MainActivity extends AppCompatActivity {
     File file = new File("settings.txt");
     //final MediaPlayer click=MediaPlayer.create(this, R.raw.Pling_KevanGC_1485374730);
 
+
+
     public void changeButtonColor(String n){//have the thing be a spinner with the different colors listed
         buttonColor=n;
     }
@@ -62,8 +64,8 @@ public class MainActivity extends AppCompatActivity {
                 cs);*/
 
         // Assign the adapter to this ListActivity
-        ArrayAdapter<String> compList = new ArrayAdapter<String>(MainActivity.this,android.R.layout.simple_list_item_1,getResources().getStringArray(R.array.comps));
 
+        final ArrayAdapter<String> compList = new ArrayAdapter<String>(MainActivity.this,android.R.layout.simple_list_item_1,getResources().getStringArray(R.array.comps));
         //DOES NOT CRASH IMMEDIATELY
 
         boolean fileFound=true;
@@ -95,19 +97,15 @@ public class MainActivity extends AppCompatActivity {
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                try {
+                /*try {
                     FileWriter fw=new FileWriter(file);
                     fw.append(buttonColor+"\n"+voice);
                 } catch (IOException e) {
                 }
-
+                */
                 TextView text=(TextView)findViewById(R.id.textView);
-                int a=(int)(Math.random()*cs.length);
-
-
-
-
-                text.setText(cs[a].replace('_',' '));
+                int a=(int)(Math.random()*compList.getCount());
+                                text.setText(compList.getItem(a).replace('_',' '));
 
 
 
