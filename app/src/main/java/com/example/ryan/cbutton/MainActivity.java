@@ -50,6 +50,7 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         final MediaPlayer bgm = MediaPlayer.create(this, R.raw.bgm);
+        bgm.setVolume(0.2f,0.2f);
         bgm.start();
         bgm.setLooping(true);
         final MediaPlayer click = MediaPlayer.create(this, R.raw.click);
@@ -77,9 +78,6 @@ public class MainActivity extends AppCompatActivity {
         }else{
 
         }
-
-
-
 
         Button button =(Button)findViewById(R.id.button);
         //button.setImageResource()
