@@ -43,14 +43,22 @@ public class MainActivity extends AppCompatActivity {
         return buttonColor;
     }
 
+    public MediaPlayer bgm;
 
+    public void bgmE(){
+        bgm = MediaPlayer.create(this, R.raw.bgm);
+        bgm.setVolume(0.2f,0.2f);
+    }
+    
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        final MediaPlayer bgm = MediaPlayer.create(this, R.raw.bgm);
-        bgm.setVolume(0.2f,0.2f);
+        bgmE();
+
+
+
         bgm.start();
         bgm.setLooping(true);
         final MediaPlayer click = MediaPlayer.create(this, R.raw.click);
@@ -117,5 +125,30 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(new Intent(MainActivity.this, Settings.class));
             }
         });
+
+    }
+
+    protected void onPause(){
+        super.onPause();
+        if(bgm.isPlaying()){
+            try{
+                bgm.pause();
+            }catch(Exception e){
+
+            }
+        }
+    }
+
+    protected void onResume(){
+        super.onResume();
+        if(!bgm.isPlaying()){
+            try{
+                bgm.start();
+                bgm.setLooping(true);
+            }catch(Exception e){
+
+            }
+        }
+
     }
 }
