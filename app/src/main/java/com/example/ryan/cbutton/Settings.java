@@ -37,7 +37,7 @@ public class Settings extends AppCompatActivity {
 
             }
         }
-        changeTime(bgm.getCurrentPosition());
+         changeTime(bgm.getCurrentPosition());
     }
 
     protected void onResume(){
