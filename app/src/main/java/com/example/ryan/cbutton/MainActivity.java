@@ -22,6 +22,14 @@ public class MainActivity extends AppCompatActivity {
     String voice="noVoice";
     File file = new File("settings.txt");
 
+    public static int time = 0;
+    public static void changeTime(int i){
+        time = i;
+    }
+    public static int getTime(){
+        return time;
+    }
+
     public void changeButtonColor(String n){//have the thing be a spinner with the different colors listed
         buttonColor=n;
     }
@@ -49,7 +57,7 @@ public class MainActivity extends AppCompatActivity {
         bgm = MediaPlayer.create(this, R.raw.bgm);
         bgm.setVolume(0.2f,0.2f);
     }
-    
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -58,7 +66,7 @@ public class MainActivity extends AppCompatActivity {
         bgmE();
 
 
-
+        bgm.seekTo(getTime());
         bgm.start();
         bgm.setLooping(true);
         final MediaPlayer click = MediaPlayer.create(this, R.raw.click);
@@ -137,12 +145,14 @@ public class MainActivity extends AppCompatActivity {
 
             }
         }
+        changeTime(bgm.getCurrentPosition());
     }
 
     protected void onResume(){
         super.onResume();
         if(!bgm.isPlaying()){
             try{
+                bgm.seekTo(getTime());
                 bgm.start();
                 bgm.setLooping(true);
             }catch(Exception e){
