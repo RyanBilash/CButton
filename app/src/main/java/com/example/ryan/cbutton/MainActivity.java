@@ -85,6 +85,8 @@ public class MainActivity extends AppCompatActivity {
         bgm.setVolume(0.2f,0.2f);
     }
 
+    ImageButton button =(ImageButton)findViewById(R.id.button);
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -96,12 +98,9 @@ public class MainActivity extends AppCompatActivity {
         bgm.start();
         bgm.setLooping(true);
 
-
-
         final MediaPlayer click = MediaPlayer.create(this, R.raw.click);
 
         final ArrayAdapter<String> compList = new ArrayAdapter<String>(MainActivity.this,android.R.layout.simple_list_item_1,getResources().getStringArray(R.array.comps));
-
 
         boolean fileFound=true;
 
@@ -116,6 +115,7 @@ public class MainActivity extends AppCompatActivity {
             try {
                 FileWriter fw=new FileWriter(file);
                 fw.append("red\nSound");
+                fw.close();
             } catch (IOException e) {
             }
         }else{
@@ -128,44 +128,13 @@ public class MainActivity extends AppCompatActivity {
             bgm.start();
         }
 
-        ImageButton button =(ImageButton)findViewById(R.id.button);
-        //button.setImageResource()
-
-        if(buttonColor.equals("red")){
-            button.setImageResource(R.drawable.red);
-        }else if(buttonColor.equals("purple")){
-            button.setImageResource(R.drawable.purple);
-        }else if(buttonColor.equals("blue")){
-            button.setImageResource(R.drawable.blue);
-        }else if(buttonColor.equals("green")){
-            button.setImageResource(R.drawable.green);
-        }
-
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                click.start();
+                if(soundEnabled()){click.start();}
                 TextView text=(TextView)findViewById(R.id.textView);
                 int a=(int)(Math.random()*compList.getCount());
                                 text.setText(compList.getItem(a).replace('_',' '));
-
-
-
-
-                /*
-                *
-                *
-               if(voiceEnabled()){
-                    InputStream ins=getResources().openRawResource(getResources().getIdentifier(speaks[a],"raw",getPackageName()));
-
-                    int id=getResources().getIdentifier(speaks[a],"raw",getPackageName());
-                    MediaPlayer m=MediaPlayer.create(AudioPlayer);
-                    AudioStream as= getResources().openRawResource(getResources().getIdentifier(speaks[a],"raw",getPackageName()));
-            }
-                *
-                *
-                *
-                * */
 
 
             }
@@ -174,7 +143,9 @@ public class MainActivity extends AppCompatActivity {
         settings.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                click.start();
+                if(soundEnabled()){
+                    click.start();
+                }
                 startActivity(new Intent(MainActivity.this, Settings.class));
             }
         });
@@ -197,12 +168,23 @@ public class MainActivity extends AppCompatActivity {
         super.onResume();
         if(!bgm.isPlaying()){
             try{
-                bgm.seekTo(getTime());
-                bgm.start();
-                bgm.setLooping(true);
+                if(!soundEnabled()){
+                    bgm.seekTo(getTime());
+                    bgm.start();
+                    bgm.setLooping(true);
+                }
             }catch(Exception e){
 
             }
+        }
+        if(buttonColor.equals("red")){
+            button.setImageResource(R.drawable.red);
+        }else if(buttonColor.equals("purple")){
+            button.setImageResource(R.drawable.purple);
+        }else if(buttonColor.equals("blue")){
+            button.setImageResource(R.drawable.blue);
+        }else if(buttonColor.equals("green")){
+            button.setImageResource(R.drawable.green);
         }
 
     }

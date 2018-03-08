@@ -80,14 +80,7 @@ public class Settings extends AppCompatActivity {
                     bgm.start();
                 }
                 Sound(!soundEnabled());
-                try {
-                    outStream = new BufferedWriter(new FileWriter("settings.txt"));
-                    outStream.newLine();
-                    outStream.write(buttonColor);
-                    outStream.newLine();
-                    outStream.write(voice);
-                    outStream.close();
-                } catch (Exception e) {}
+                writeToFile();
 
             }
         });
@@ -103,14 +96,7 @@ public class Settings extends AppCompatActivity {
                 if(soundEnabled()){
                     click.start();
                 }
-                try {
-                    outStream = new BufferedWriter(new FileWriter("settings.txt"));
-                    outStream.newLine();
-                    outStream.write(buttonColor);
-                    outStream.newLine();
-                    outStream.write(voice);
-                    outStream.close();
-                } catch (Exception e) {}
+                writeToFile();
             }
         });
         blu.setOnClickListener(new View.OnClickListener() {
@@ -120,14 +106,7 @@ public class Settings extends AppCompatActivity {
                 if(soundEnabled()){
                     click.start();
                 }
-                try {
-                    outStream = new BufferedWriter(new FileWriter("settings.txt"));
-                    outStream.newLine();
-                    outStream.write(buttonColor);
-                    outStream.newLine();
-                    outStream.write(voice);
-                    outStream.close();
-                } catch (Exception e) {}
+                writeToFile();
             }
         });
         gre.setOnClickListener(new View.OnClickListener() {
@@ -137,14 +116,7 @@ public class Settings extends AppCompatActivity {
                 if(soundEnabled()){
                     click.start();
                 }
-                try {
-                    outStream = new BufferedWriter(new FileWriter("settings.txt"));
-                    outStream.newLine();
-                    outStream.write(buttonColor);
-                    outStream.newLine();
-                    outStream.write(voice);
-                    outStream.close();
-                } catch (Exception e) {}
+                writeToFile();
             }
         });
         pur.setOnClickListener(new View.OnClickListener() {
@@ -154,18 +126,23 @@ public class Settings extends AppCompatActivity {
                 if(soundEnabled()){
                     click.start();
                 }
-                try {
-                    outStream = new BufferedWriter(new FileWriter("settings.txt"));
-                    outStream.newLine();
-                    outStream.write(buttonColor);
-                    outStream.newLine();
-                    outStream.write(voice);
-                    outStream.close();
-                } catch (Exception e) {}
+                writeToFile();
             }
         });
 
     }
+
+    private void writeToFile(){
+        try {
+            outStream = new BufferedWriter(new FileWriter("settings.txt"));
+            outStream.newLine();
+            outStream.write(buttonColor);
+            outStream.newLine();
+            outStream.write(voice);
+            outStream.close();
+        } catch (Exception e) {}
+    }
+
     protected void onPause(){
         super.onPause();
         if(bgm.isPlaying()){
@@ -182,9 +159,11 @@ public class Settings extends AppCompatActivity {
         super.onResume();
         if(!bgm.isPlaying()){
             try{
-                bgm.seekTo(getTime());
-                bgm.start();
-                bgm.setLooping(true);
+                if(!soundEnabled()){
+                    bgm.seekTo(getTime());
+                    bgm.start();
+                    bgm.setLooping(true);
+                }
             }catch(Exception e){
 
             }
