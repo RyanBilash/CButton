@@ -8,49 +8,35 @@ import android.widget.CompoundButton;
 import android.widget.ImageButton;
 import android.widget.Switch;
 
-import java.io.BufferedWriter;
-import java.io.File;
-import java.io.FileWriter;
+import java.io.FileOutputStream;
+import java.io.OutputStreamWriter;
 
+import static com.example.ryan.cbutton.MainActivity.Sound;
+import static com.example.ryan.cbutton.MainActivity.buttonColor;
 import static com.example.ryan.cbutton.MainActivity.changeTime;
-import static com.example.ryan.cbutton.MainActivity.getBC;
-import static com.example.ryan.cbutton.MainActivity.getS;
 import static com.example.ryan.cbutton.MainActivity.getTime;
+import static com.example.ryan.cbutton.MainActivity.soundEnabled;
+import static com.example.ryan.cbutton.MainActivity.voice;
 
 public class Settings extends AppCompatActivity {
     public MediaPlayer bgm;
-
-    String buttonColor=getBC();
-    String voice = getS();
-    File file = new File("settings.txt");
-
-    public BufferedWriter outStream;
-
-    public boolean soundEnabled(){
-        if(voice.equals("Sound")){
-            return true;
-        }else{
-            return false;
-        }
-    }
-
-    public void Sound(boolean n){
-        if(n){
-            voice="Sound";
-        }else{
-            voice="noSound";
-        }
-    }
 
     public void bgmE(){
         bgm = MediaPlayer.create(this, R.raw.bgm);
         bgm.setVolume(0.2f,0.2f);
     }
 
+    /*private static Context context;
+    public Context getContext(){
+        return context;
+    }*/
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_settings);
+
+        //context=getApplicationContext();
 
         final MediaPlayer click = MediaPlayer.create(this, R.raw.click);
 
@@ -61,7 +47,7 @@ public class Settings extends AppCompatActivity {
         bgm.setLooping(true);
 
         if(!soundEnabled()){
-            bgm.stop();
+            bgm.pause();
         }else{
             bgm.start();
         }
@@ -73,13 +59,14 @@ public class Settings extends AppCompatActivity {
         sw.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                if(soundEnabled()){
-                    bgm.stop();
+                Sound(!soundEnabled());
+                if(!soundEnabled()){
+                    bgm.pause();
                     click.start();
                 }else{
                     bgm.start();
                 }
-                Sound(!soundEnabled());
+
                 writeToFile();
 
             }
@@ -132,15 +119,14 @@ public class Settings extends AppCompatActivity {
 
     }
 
-    private void writeToFile(){
-        try {
-            outStream = new BufferedWriter(new FileWriter("settings.txt"));
-            outStream.newLine();
-            outStream.write(buttonColor);
-            outStream.newLine();
-            outStream.write(voice);
-            outStream.close();
-        } catch (Exception e) {}
+    public void writeToFile(){
+        try{
+            FileOutputStream out = openFileOutput("settings.txt",MODE_PRIVATE);
+            OutputStreamWriter ow = new OutputStreamWriter(out);
+
+            ow.write(buttonColor+"\n"+voice);
+            ow.close();
+        }catch(Exception e){}
     }
 
     protected void onPause(){
@@ -159,7 +145,7 @@ public class Settings extends AppCompatActivity {
         super.onResume();
         if(!bgm.isPlaying()){
             try{
-                if(!soundEnabled()){
+                if(soundEnabled()){
                     bgm.seekTo(getTime());
                     bgm.start();
                     bgm.setLooping(true);

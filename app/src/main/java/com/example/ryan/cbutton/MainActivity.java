@@ -6,44 +6,35 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.ArrayAdapter;
-import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.TextView;
 
-import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileReader;
-import java.io.FileWriter;
-import java.io.IOException;
-import java.util.Scanner;
+import java.io.FileInputStream;
+import java.io.InputStreamReader;
 
 public class MainActivity extends AppCompatActivity {
 
-    public static File file = new File("settings.txt");
-    public static String getFile(int a){
+    public void getFile(){
         try{
-            Scanner sc = new Scanner(new FileReader(file));
-            String s;
-            if(a==1){
-                s=sc.nextLine();
-                sc.close();
-                return s;
-            }else{
-                sc.nextLine();
-                s=sc.nextLine();
-                return s;
+            FileInputStream in = openFileInput("settings.txt");
+            InputStreamReader ir = new InputStreamReader(in);
+
+            String s = "";
+
+            int a = ir.read();
+            while(a!=-1){
+                s+=(char)a;
+                a=ir.read();
             }
+            ir.close();
+            String q = "\n";
+            String[]sa=s.split(q);
+            buttonColor = sa[0];
+            voice = sa[1];
         }catch(Exception e){}
-        if(a==1){
-            return "red";
-        }else{
-            return "Sound";
-        }
     }
-
-
-    static String buttonColor=getFile(1);
-    static String voice=getFile(2);
+    static String buttonColor="red";
+    static String voice="Sound";
 
 
     public static int time = 0;
@@ -57,14 +48,14 @@ public class MainActivity extends AppCompatActivity {
     public void changeButtonColor(String n){//have the thing be a spinner with the different colors listed
         buttonColor=n;
     }
-    public void Sound(boolean n){
+    public static void Sound(boolean n){
         if(n){
             voice="Sound";
         }else{
             voice="noSound";
         }
     }
-    public boolean soundEnabled(){
+    public static boolean soundEnabled(){
         if(voice.equals("Sound")){
             return true;
         }else{
@@ -85,14 +76,30 @@ public class MainActivity extends AppCompatActivity {
         bgm.setVolume(0.2f,0.2f);
     }
 
-    ImageButton button =(ImageButton)findViewById(R.id.button);
+    public ImageButton button;
+
+    public void createButton(){
+        button = (ImageButton)findViewById(R.id.button);
+        if(buttonColor.equals("red")){
+            button.setImageResource(R.drawable.red);
+        }else if(buttonColor.equals("purple")){
+            button.setImageResource(R.drawable.purple);
+        }else if(buttonColor.equals("blue")){
+            button.setImageResource(R.drawable.blue);
+        }else if(buttonColor.equals("green")){
+            button.setImageResource(R.drawable.green);
+        }
+    }
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+         getFile();
 
         bgmE();
+        createButton();
 
         bgm.seekTo(getTime());
         bgm.start();
@@ -102,28 +109,8 @@ public class MainActivity extends AppCompatActivity {
 
         final ArrayAdapter<String> compList = new ArrayAdapter<String>(MainActivity.this,android.R.layout.simple_list_item_1,getResources().getStringArray(R.array.comps));
 
-        boolean fileFound=true;
-
-        try {
-            BufferedReader br=new BufferedReader(new FileReader(file));
-            buttonColor=br.readLine();
-            voice=br.readLine();
-        } catch (Exception e) {
-            fileFound=false;
-        }
-        if(!fileFound){
-            try {
-                FileWriter fw=new FileWriter(file);
-                fw.append("red\nSound");
-                fw.close();
-            } catch (IOException e) {
-            }
-        }else{
-
-        }
-
         if(!soundEnabled()){
-            bgm.stop();
+            bgm.pause();
         }else{
             bgm.start();
         }
@@ -139,7 +126,7 @@ public class MainActivity extends AppCompatActivity {
 
             }
         });
-        Button settings=(Button)findViewById(R.id.Settings);
+        ImageButton settings=(ImageButton)findViewById(R.id.Settings);
         settings.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -168,7 +155,7 @@ public class MainActivity extends AppCompatActivity {
         super.onResume();
         if(!bgm.isPlaying()){
             try{
-                if(!soundEnabled()){
+                if(soundEnabled()){
                     bgm.seekTo(getTime());
                     bgm.start();
                     bgm.setLooping(true);
