@@ -13,6 +13,7 @@ import android.widget.EditText;
 import static com.example.ryan.cbutton.MainActivity.changeTime;
 import static com.example.ryan.cbutton.MainActivity.getTime;
 import static com.example.ryan.cbutton.MainActivity.soundEnabled;
+import static com.example.ryan.cbutton.R.id.tmr;
 
 public class Help extends AppCompatActivity {
     public MediaPlayer bgm;//Background Music
@@ -103,15 +104,15 @@ public class Help extends AppCompatActivity {
                 startActivity(launchBrowser);
             }
         });
-        Button tmr = (Button)findViewById(R.id.tmr);
-        tmr.setOnClickListener(new View.OnClickListener() {
+        Button save = (Button)findViewById(R.id.save);
+        save.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 if(soundEnabled()){
                     click.start();
                 }
                 //Open up browser with page
-                Uri uriUrl = Uri.parse("https://themighty.com/suicide-prevention-resources/");
+                Uri uriUrl = Uri.parse("https://save.org/");
                 Intent launchBrowser = new Intent(Intent.ACTION_VIEW, uriUrl);
                 startActivity(launchBrowser);
             }
