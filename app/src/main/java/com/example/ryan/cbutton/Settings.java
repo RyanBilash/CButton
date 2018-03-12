@@ -26,40 +26,33 @@ public class Settings extends AppCompatActivity {
         bgm.setVolume(0.2f,0.2f);
     }
 
-    /*private static Context context;
-    public Context getContext(){
-        return context;
-    }*/
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_settings);
 
-        //context=getApplicationContext();
-
         final MediaPlayer click = MediaPlayer.create(this, R.raw.click);
 
         bgmE();
 
-        bgm.seekTo(getTime());
-        bgm.start();
-        bgm.setLooping(true);
+        bgm.seekTo(getTime()); //goes to current time in the music
+        bgm.start(); //starts music
+        bgm.setLooping(true); //loops music
 
         if(!soundEnabled()){
             bgm.pause();
         }else{
             bgm.start();
-        }
+        } //turn sound on or off
 
 
 
-        Switch sw = (Switch)findViewById(R.id.switch1);
+        Switch sw = (Switch)findViewById(R.id.switch1);//Switch the sound on or off
         sw.setChecked(soundEnabled());
         sw.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                Sound(!soundEnabled());
+                Sound(!soundEnabled());//Change the sound setting
                 if(!soundEnabled()){
                     bgm.pause();
                     click.start();
@@ -71,10 +64,10 @@ public class Settings extends AppCompatActivity {
 
             }
         });
-        ImageButton red = (ImageButton)findViewById(R.id.ButtonR);
-        ImageButton blu = (ImageButton)findViewById(R.id.ButtonB);
-        ImageButton pur = (ImageButton)findViewById(R.id.ButtonP);
-        ImageButton gre = (ImageButton)findViewById(R.id.ButtonG);
+        ImageButton red = (ImageButton)findViewById(R.id.ButtonR);//The red button
+        ImageButton blu = (ImageButton)findViewById(R.id.ButtonB);//The blue button
+        ImageButton pur = (ImageButton)findViewById(R.id.ButtonP);//The purple button
+        ImageButton gre = (ImageButton)findViewById(R.id.ButtonG);//The green button
 
         red.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -84,6 +77,7 @@ public class Settings extends AppCompatActivity {
                     click.start();
                 }
                 writeToFile();
+                //Sets button to red
             }
         });
         blu.setOnClickListener(new View.OnClickListener() {
@@ -94,6 +88,7 @@ public class Settings extends AppCompatActivity {
                     click.start();
                 }
                 writeToFile();
+                //Sets button to blue
             }
         });
         gre.setOnClickListener(new View.OnClickListener() {
@@ -104,6 +99,7 @@ public class Settings extends AppCompatActivity {
                     click.start();
                 }
                 writeToFile();
+                //Sets button to green
             }
         });
         pur.setOnClickListener(new View.OnClickListener() {
@@ -114,6 +110,7 @@ public class Settings extends AppCompatActivity {
                     click.start();
                 }
                 writeToFile();
+                //Sets button to purple
             }
         });
 
@@ -123,13 +120,13 @@ public class Settings extends AppCompatActivity {
         try{
             FileOutputStream out = openFileOutput("settings.txt",MODE_PRIVATE);
             OutputStreamWriter ow = new OutputStreamWriter(out);
-
+            //Writes to the settings file with the new settings passed through the method
             ow.write(buttonColor+"\n"+voice);
             ow.close();
-        }catch(Exception e){}
+        }catch(Exception e){}//If something breaks, well, yeah, it shouldn't, but um, yeah, it, uh doesn't ruin the app if it somehow breaks
     }
 
-    protected void onPause(){
+    protected void onPause(){ //pause music
         super.onPause();
         if(bgm.isPlaying()){
             try{
@@ -141,7 +138,7 @@ public class Settings extends AppCompatActivity {
          changeTime(bgm.getCurrentPosition());
     }
 
-    protected void onResume(){
+    protected void onResume(){ //resume music
         super.onResume();
         if(!bgm.isPlaying()){
             try{
