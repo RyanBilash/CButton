@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.TextView;
 
@@ -96,7 +97,7 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-         getFile();
+        getFile();
 
         bgmE();
         createButton();
@@ -137,6 +138,17 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+        Button help = (Button)findViewById(R.id.help);
+        help.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(soundEnabled()){
+                    click.start();
+                }
+                startActivity(new Intent(MainActivity.this, Help.class));
+            }
+        });
+
     }
 
     protected void onPause(){
@@ -144,9 +156,7 @@ public class MainActivity extends AppCompatActivity {
         if(bgm.isPlaying()){
             try{
                 bgm.pause();
-            }catch(Exception e){
-
-            }
+            }catch(Exception e){}
         }
         changeTime(bgm.getCurrentPosition());
     }
