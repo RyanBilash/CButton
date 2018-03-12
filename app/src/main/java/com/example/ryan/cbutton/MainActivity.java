@@ -18,6 +18,7 @@ public class MainActivity extends AppCompatActivity {
     public void getFile(){
         try{
             //Get the settings from settings.txt
+
             FileInputStream in = openFileInput("settings.txt");
             InputStreamReader ir = new InputStreamReader(in);//Get the file
 
@@ -33,7 +34,7 @@ public class MainActivity extends AppCompatActivity {
             String[] sa = s.split(q);//Split the string at new lines
             buttonColor = sa[0]; //set color
             voice = sa[1]; //enables or disables sound
-        }catch(Exception e){}
+        }catch(Exception e){}//Catches any possible errors with file-reading, this is used for all try-catch
     }
     static String buttonColor="red";
     static String voice="Sound";

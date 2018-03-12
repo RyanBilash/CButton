@@ -32,7 +32,8 @@
         <activity
             android:name=".About"
             android:background="#effeff"
-            android:label="About"></activity>
+            android:label="About"
+            android:screenOrientation="portrait"></activity>
     </application>
 
 </manifest>

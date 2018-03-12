@@ -123,7 +123,7 @@ public class Settings extends AppCompatActivity {
             //Writes to the settings file with the new settings passed through the method
             ow.write(buttonColor+"\n"+voice);
             ow.close();
-        }catch(Exception e){}//If something breaks, well, yeah, it shouldn't, but um, yeah, it, uh doesn't ruin the app if it somehow breaks
+        }catch(Exception e){}
     }
 
     protected void onPause(){ //pause music

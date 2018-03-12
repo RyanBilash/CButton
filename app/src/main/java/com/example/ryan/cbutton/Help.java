@@ -13,7 +13,6 @@ import android.widget.EditText;
 import static com.example.ryan.cbutton.MainActivity.changeTime;
 import static com.example.ryan.cbutton.MainActivity.getTime;
 import static com.example.ryan.cbutton.MainActivity.soundEnabled;
-import static com.example.ryan.cbutton.R.id.tmr;
 
 public class Help extends AppCompatActivity {
     public MediaPlayer bgm;//Background Music
