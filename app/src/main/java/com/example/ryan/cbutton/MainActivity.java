@@ -125,14 +125,14 @@ public class MainActivity extends AppCompatActivity {
         settings.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(soundEnabled()){
+                if(soundEnabled()){//check if the user wants sound
                     click.start();
                 }
                 startActivity(new Intent(MainActivity.this, Settings.class));
             }
         });
 
-        Button help = (Button)findViewById(R.id.help);//When this button is clicked, go to the help page
+        Button help = (Button)findViewById(R.id.help);//When this button is clicked, go to the resources page
         help.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
